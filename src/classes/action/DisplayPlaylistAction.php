@@ -10,7 +10,7 @@ class DisplayPlaylistAction extends Action {
         session_start();
         $alr = $_SESSION['playlist'];
         $r = new AudioListRenderer($alr);
-        return $r->render(1);
+        return $r->render(2);
     }
 
 }

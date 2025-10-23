@@ -11,22 +11,38 @@ class AddPodcastTrackAction extends Action {
     public function execute() : string {
         session_start();
         if($this->http_method === 'POST') {
-            $pt = new PodcastTrack(filter_var($_POST['titlePodcast']), filter_var($_POST['filePodcast']));
-            $pt->setAuteur(filter_var($_POST['authorPodcast']));
-            $pt->setDuree(filter_var($_POST['timePodcast']));
-            $p = $_SESSION['playlist'];
+            $uploaddir = 'C:/xampp/htdocs/mysite/DeefyApp/audio/';
+            $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
-            $p->addPiste($pt);
+            if (substr($_FILES['userfile']['name'],-4) === '.mp3' && $_FILES['userfile']['type'] === 'audio/mpeg') {
+                if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+                    $pt = new PodcastTrack(filter_var($_POST['titlePodcast']), filter_var($_FILES['userfile']['name']));
+                    $pt->setAuteur(filter_var($_POST['authorPodcast']));
+                    $pt->setDuree(filter_var($_POST['timePodcast']));
+                    $p = $_SESSION['playlist'];
 
-            $_SESSION['playlist'] = $p;
-            $r = new AudioListRenderer($_SESSION['playlist']);
-            return $r->render(1) .  "<a href='?action=add-track'>Ajouter encore une piste</a>";
+                    $p->addPiste($pt);
+
+                    $_SESSION['playlist'] = $p;
+                    $r = new AudioListRenderer($_SESSION['playlist']);
+                    return $r->render(2) .  "<a href='?action=add-track'>Ajouter encore une piste</a>";
+                } else {
+                    print_r($_FILES);
+                    return "error downloading file";
+                }
+            } else {
+                print_r($_FILES);
+                return "error wrong file extension";
+            }
+
+
         } else if ($this->http_method === 'GET') {
-            return "<form method='post' action='?action=add-track'>"
+            return "<form enctype='multipart/form-data' method='post' action='?action=add-track'>"
                 . "<label for='titlePodcast'>Donner titre podcast : </label>"
                 . "<input type='text' id='titlePodcast' name='titlePodcast'>"
-                . "<br><br><label for='filePodcast'>Donner fichier podcast : </label>"
-                . "<input type='text' id='filePodcast' name='filePodcast'>"
+                . "<br><br><label for='userfile'>Donner fichier podcast : </label>"
+                . "<input type='hidden' name='MAX_FILE_SIZE' value='30000' />"
+                . "<input type='file' name='userfile'>"
                 . "<br><br><label for='authorPodcast'>Donner auteur podcast : </label>"
                 . "<input type='text' id='authorPodcast' name='authorPodcast'>"
                 . "<br><br><label for='timePodcast'>Donner duree podcast : </label>"

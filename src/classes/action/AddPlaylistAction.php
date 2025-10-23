@@ -12,7 +12,7 @@ class AddPlaylistAction extends Action {
         if($this->http_method === 'POST') {
             $_SESSION['playlist'] = new Playlist(filter_var($_POST['namePlaylist']));
             $r = new AudioListRenderer($_SESSION['playlist']);
-            return $r->render(1) . "<br><a href='?action=add-track'>Ajouter une piste</a>";
+            return $r->render(2) . "<br><a href='?action=add-track'>Ajouter une piste</a>";
         } else if ($this->http_method === 'GET') {
             return "<form method='post' action='?action=add-playlist'>"
                 . "<label for='namePlaylist'>Donner nom playlist : </label>"
