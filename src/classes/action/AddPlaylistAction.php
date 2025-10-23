@@ -9,7 +9,7 @@ class AddPlaylistAction extends Action {
     public function execute() : string {
         session_start();
         $_SESSION['playlist'] = new Playlist("playlist");
-        return "ajout à la playlist";
+        return "ajout de la playlist";
     }
 
 }

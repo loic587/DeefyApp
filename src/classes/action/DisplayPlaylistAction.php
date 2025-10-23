@@ -6,16 +6,11 @@ use iutnc\deefy\render\AudioListRenderer;
 
 class DisplayPlaylistAction extends Action {
 
-    private AudioListRenderer $alr;
-
-    public function __construct()
-    {
-        $this->alr = $_SESSION['playlist'];
-    }
-
     public function execute() : string {
         session_start();
-        return $this->alr->render(1);
+        $alr = $_SESSION['playlist'];
+        $r = new AudioListRenderer($alr);
+        return $r->render(1);
     }
 
 }
