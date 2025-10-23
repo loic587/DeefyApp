@@ -20,7 +20,7 @@ $loader->register();
 $d1 = new Dispatcher();
 $d1->run();
 
-$t1 = new AlbumTrack("Thriller", "thriller.mp3", "Thriller", 1);
+/*$t1 = new AlbumTrack("Thriller", "thriller.mp3", "Thriller", 1);
 $t1->setAuteur("Michael Jackson");
 $t1->setDuree(357);
 $t2 = new AlbumTrack("Billie Jean", "billiejean.mp3", "Thriller", 2);
@@ -41,4 +41,4 @@ echo $r1->render(Renderer::COMPACT);
 $rp = new PodcastRenderer($p1);
 echo $rp->render(Renderer::LONG);
 $listRenderer = new AudioListRenderer($playlist);
-echo $listRenderer->render(0);
+echo $listRenderer->render(0); */
