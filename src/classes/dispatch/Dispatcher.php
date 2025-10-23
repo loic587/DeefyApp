@@ -6,6 +6,7 @@ use iutnc\deefy\action\DefaultAction;
 use iutnc\deefy\action\AddPlaylistAction;
 use iutnc\deefy\action\AddPodcastTrackAction;
 use iutnc\deefy\action\DisplayPlaylistAction;
+use iutnc\deefy\action\AddUserAction;
 
 class Dispatcher{
 
@@ -13,7 +14,9 @@ class Dispatcher{
 
     public function __construct()
     {
-        $this->action = $_GET['action'];
+        if(isset($_GET['action'])) {
+            $this->action = $_GET['action'];
+        }
     }
 
     public function run(): void {
@@ -30,6 +33,9 @@ class Dispatcher{
             case "add-track" :
                 $act = new AddPodcastTrackAction();
                 break;
+            case "add-user" :
+                $act = new AddUserAction();
+                break;
             default :
                 $act = new DefaultAction();
                 break;
@@ -39,7 +45,14 @@ class Dispatcher{
     }
 
     private function renderPage(string $html): void {
-        echo $html;
+        echo <<<HTML
+            <h1> DeefyApp </h1>
+            $html
+            <br><a href='?action=add-user'>Inscription</a>
+            <br><a href='?action=add-playlist'>Creer playlist</a>
+            <br><a href='?action=playlist'>Voir playlist</a>
+            <br><a href='main.php'>Page d'accueil</a>
+            HTML;
     }
 
 }
