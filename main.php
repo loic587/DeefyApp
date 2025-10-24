@@ -1,5 +1,4 @@
 <?php
-iutnc\deefy\repository\DeefyRepository::setConfig('db.config.ini');
 
 require_once 'vendor/autoload.php';
 
@@ -14,6 +13,8 @@ use iutnc\deefy\render\Renderer;
 use iutnc\deefy\dispatch\Dispatcher;
 use iutnc\deefy\exception\InvalidPropertyValueException;
 use iutnc\deefy\repository\DeefyRepository;
+
+iutnc\deefy\repository\DeefyRepository::setConfig('db.config.ini');
 
 /*$loader = new Loader("iutnc\\deefy\\", "src/classes");
 $loader->register();*/

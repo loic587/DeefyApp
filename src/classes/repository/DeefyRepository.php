@@ -2,6 +2,8 @@
 
 namespace iutnc\deefy\repository;
 
+use iutnc\deefy\audio\lists\Playlist;
+
 class DeefyRepository {
 
     private \PDO $pdo;
@@ -16,14 +18,18 @@ class DeefyRepository {
 
     public static function setConfig( $file ) : void {
         $conf = parse_ini_file($file);
-        self::$config = [ 'dsn' => $conf['dsn'], 'user' => $conf['username'], 'pass' => $conf['password'],
-            'host' => $conf['host'], 'database' => $conf['database']];
+        $dsn = "$conf[driver]:$conf[host];dbname=$conf[database]";
+        self::$config = [ 'dsn' => $dsn, 'user' => $conf['username'], 'pass' => $conf['password']];
     }
 
-    public static function getInstance() {
+    public static function getInstance() : DeefyRepository {
         if (is_null(self::$instance)) {
             self::$instance = new DeefyRepository(self::$config);
         }
         return self::$instance;
+    }
+
+    public function findPlaylistById(int $id): Playlist {
+
     }
 }
