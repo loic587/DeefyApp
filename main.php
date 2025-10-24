@@ -1,5 +1,5 @@
 <?php
-// require_once './src/loader/Psr4ClassLoader.php';
+iutnc\deefy\repository\DeefyRepository::setConfig('db.config.ini');
 
 require_once 'vendor/autoload.php';
 
@@ -13,12 +13,16 @@ use iutnc\deefy\render\AudioListRenderer;
 use iutnc\deefy\render\Renderer;
 use iutnc\deefy\dispatch\Dispatcher;
 use iutnc\deefy\exception\InvalidPropertyValueException;
+use iutnc\deefy\repository\DeefyRepository;
 
 /*$loader = new Loader("iutnc\\deefy\\", "src/classes");
 $loader->register();*/
 
 $d1 = new Dispatcher();
 $d1->run();
+
+$rep = DeefyRepository::getInstance();
+// $pl = $rep->findPlaylistById( $id );
 
 /*$t1 = new AlbumTrack("Thriller", "thriller.mp3", "Thriller", 1);
 $t1->setAuteur("Michael Jackson");

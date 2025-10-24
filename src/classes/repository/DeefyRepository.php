@@ -16,7 +16,8 @@ class DeefyRepository {
 
     public static function setConfig( $file ) : void {
         $conf = parse_ini_file($file);
-        self::$config = [ 'dsn' => ""]
+        self::$config = [ 'dsn' => $conf['dsn'], 'user' => $conf['username'], 'pass' => $conf['password'],
+            'host' => $conf['host'], 'database' => $conf['database']];
     }
 
     public static function getInstance() {
@@ -25,16 +26,4 @@ class DeefyRepository {
         }
         return self::$instance;
     }
-    /*try {
-    $bdd = new PDO('mysql:host=localhost; dbname=bdd; charset=utf8','root', '');
-    }
-    catch (Exception $e) {
-        die('erreur : ' . $e->getMessage());
-    }
-
-    $query = $bdd->query("SELECT prix FROM personnage");
-    while($data=$query->fetch())
-    {
-        echo $data['prix'] . "<br>";
-    }*/
 }
