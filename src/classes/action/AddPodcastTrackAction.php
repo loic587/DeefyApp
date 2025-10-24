@@ -14,6 +14,8 @@ class AddPodcastTrackAction extends Action {
             $uploaddir = 'C:/xampp/htdocs/mysite/DeefyApp/audio/';
             $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
+            /* Problème avec fichier audio ne marche pas (auncune valeur dans $_FILES['userfile']['type']
+            et $_FILES['userfile']['tmp_name'] n'affiche pas les données correctement)*/
             if (substr($_FILES['userfile']['name'],-4) === '.mp3' && $_FILES['userfile']['type'] === 'audio/mpeg') {
                 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
                     $pt = new PodcastTrack(filter_var($_POST['titlePodcast']), filter_var($_FILES['userfile']['name']));

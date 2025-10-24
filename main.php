@@ -1,7 +1,7 @@
 <?php
 // require_once './src/loader/Psr4ClassLoader.php';
 
-require_once 'src/loader/Loader.php';
+require_once 'vendor/autoload.php';
 
 use iutnc\deefy\audio\track\AlbumTrack;
 use iutnc\deefy\audio\track\PodcastTrack;
@@ -14,8 +14,8 @@ use iutnc\deefy\render\Renderer;
 use iutnc\deefy\dispatch\Dispatcher;
 use iutnc\deefy\exception\InvalidPropertyValueException;
 
-$loader = new Loader("iutnc\\deefy\\", "src/classes");
-$loader->register();
+/*$loader = new Loader("iutnc\\deefy\\", "src/classes");
+$loader->register();*/
 
 $d1 = new Dispatcher();
 $d1->run();
